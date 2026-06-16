@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>f1</title>
+    <link href="image/logocircle.png" rel="icon">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Outfit:wght@300;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --base: #000000;
+            --surface0: #313244;
+            --surface1: #45475a;
+            --overlay0: #6c7086;
+            --text: #cdd6f4;
+            --subtext0: #a6adc8;
+            --lavender: #b4befe;
+            --mantle: #181825;
+            --crust: #11111b;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--base);
+            color: var(--text);
+            font-family: 'Outfit', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        nav {
+            background-color: var(--mantle);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 2rem;
+            position: relative;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        h1 {
+            color: var(--lavender);
+            margin: 0;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-links a {
+            color: var(--subtext0);
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--surface0);
+            color: var(--lavender);
+        }
+
+        .hero {
+            margin: 20px;
+            border-radius: 28px;
+            overflow: hidden;
+            height: 600px;
+        }
+
+        .hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding:20px;
+        }
+
+        .m3-card {
+            background-color: var(--surface0);
+            padding: 24px;
+            border-radius: 24px;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+
+        .m3-card:hover {
+            background-color: var(--surface1);
+            transform: translateY(-4px);
+            border: 4px solid var(--lavender);
+            border-radius: 40px;
+            border-color: var(--lavender);
+            transform: scale(1.05);
+        }
+
+        p {
+            color: var(--subtext0);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        .gallery-item {
+            width: 100%;
+            border-radius: 32px;
+            object-fit: cover;
+            border: 4px solid transparent;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .driver-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .driver-card {
+            border-radius: 24px;
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+            color: white;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+            display: block;
+        }
+
+        .driver-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .driver-card-content {
+            position: relative;
+            z-index: 2;
+            padding: 24px;
+            height: 40%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .driver-name-first {
+            font-size: 1.2rem;
+            font-weight: 300;
+            line-height: 1;
+            font-family: monospace;
+        }
+
+        .driver-name-last {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-family: monospace;
+            line-height: 1.1;
+        }
+
+        .driver-team {
+            font-size: 0.9rem;
+            margin-top: 5px;
+            opacity: 0.9;
+            font-weight: 500;
+            left:10px;
+        }
+
+        .driver-image {
+            position: absolute;
+            right: 20px;
+            bottom: 0;
+            height: 95%;
+            z-index: 1;
+        }
+
+        .driver-bg-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 100%);
+            z-index: 1;
+        }
+
+        .wavy-divider {
+            width: 100%;
+            height: 50px;
+            margin: 40px 0 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .wavy-divider svg {
+            width: 100px;
+            height: 20px;
+            stroke: var(--lavender);
+            stroke-width: 4;
+            fill: none;
+            stroke-linecap: round;
+        }
+
+        .divider {
+           width: 100px;          
+           height: 4px;         
+           background-color: var(--lavender); 
+           border-radius: 2px;   
+           margin: 1rem auto;
+           opacity: 0.5;        
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            background-color: var(--crust);
+            color: var(--overlay0);
+            margin-top: 40px;
+        }
+
+        h3 {
+            color: var(--lavender);
+            font-size: 1rem;
+            font-weight: 400;
+        }
+        .Main-title {
+            font-family: Minecraft;
+        }
+        .title {
+            font-family: Minecraft;
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin: 20px 0;
+        }
+
+    </style>
+</head>
+
+<body>
+    <audio autoplay hidden>
+        <source src="audio/f1_racing.mp3" type="audio/mpeg">
+    </audio>
+
+    <nav>
+        <div class="logo-section">
+            <img src="image/logo_f1.png" height="40px" style="border-radius: 0%;">
+        </div>
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#teams">Teams</a>
+            <a href="#drivers">Drivers</a>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <img src="image/banner.avif" alt="f1 Banner">
+    </div>
+
+    <div class="wavy-divider">
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+    </div>
+
+    <div id="teams">
+        <h1 class="title" style="color: var(--lavender);" align="center">F1 Teams 2026</h1>
+    </div>
+
+    <div class="card-grid">
+        <div class="m3-card">
+            <img class="gallery-item" src="image/mclaren.avif">
+            <h2>McLaren</h2>
+            <img src="image/2026mclarenlogowhite.webp" height="40px" align="right" style="border-radius: 0%; margin-top: -60px;">
+            <h3>Mercedes</h3>
+            <p>Reigning Constructors' Champions; utilizing high-efficiency Mercedes power units.</p>
+            <div class="divider"></div> 
+            <p><strong>Grand Prix Entered:</strong> 946</p>
+            <p><strong>Team Points:</strong> 6610.5</p>
+            <p><strong>Highest Race Finish:</strong> 1 (x183)</p>
+            <p><strong>Podiums:</strong> 503</p>
+            <p><strong>Highest Grid Position:</strong> 1 (x156)</p>
+            <p><strong>Pole Positions:</strong> 156</p>
+            <p><strong>World Championships:</strong> 8</p>
+        </div>  
+        <div class="m3-card">
+            <img class="gallery-item" src="image/ferrari.avif">
+            <h2>Ferrari</h2>
+            <img src="image/2026ferrarilogowhite.webp" height="40px" align="right" style="border-radius: 0%; margin-top: -60px;">
+            <h3>Ferrari</h3>
+            <p>Running the new SF-26 with a major focus on the revamped 1.6L V6 turbo hybrid.</p>
+            <div class="divider"></div> 
+            <p><strong>Grand Prix Entered:</strong> 1074</p>
+            <p><strong>Team Points:</strong> 9672</p>
+            <p><strong>Highest Race Finish:</strong> 1 (x243)</p>
+            <p><strong>Podiums:</strong> 807</p>
+            <p><strong>Highest Grid Position:</strong> 1 (x249)</p>
+            <p><strong>Pole Positions:</strong> 249</p>
+            <p><strong>World Championships:</strong> 16</p>
+        </div>  
+        <div class="m3-card">
+            <img class="gallery-item" src="image/cadillac.avif">
+            <h2>Cadillac F1</h2>
+            <img src="image/2026cadillaclogowhite.webp" height="40px" align="right" style="border-radius: 0%; margin-top: -60px;">
+            <h3>Ferrari</h3>
+            <p>11th team on the grid; debuting with Ferrari-supplied engines and gearboxes.</p>
+            <div class="divider"></div> 
+            <p><strong>Grand Prix Entered:</strong> 0</p>
+            <p><strong>Team Points:</strong> 0</p>
+            <p><strong>Highest Race Finish:</strong> N/A</p>
+            <p><strong>Podiums:</strong> 0</p>
+            <p><strong>Highest Grid Position:</strong> N/A</p>
+            <p><strong>Pole Positions:</strong> 0</p>
+            <p><strong>World Championships:</strong> 0</p>
+        </div>   
+        <div class="m3-card">
+            <img class="gallery-item" src="image/mercedes.avif">
+            <h2>Mercedes-AMG</h2>
+            <img src="image/2026mercedeslogowhite.webp" height="40px" align="right" style="border-radius: 0%; margin-top: -60px; margin-right: -15px;">
+            <h3>Mercedes</h3>
+            <p>Alleged to have found a performance advantage via a new engine compression ratio.</p>
+            <div class="divider"></div> 
+            <p><strong>Grand Prix Entered:</strong> 293</p>
+            <p><strong>Team Points:</strong> 7222.5</p>
+            <p><strong>Highest Race Finish:</strong> 1 (x125)</p>
+            <p><strong>Podiums:</strong> 296</p>
+            <p><strong>Highest Grid Position:</strong> 1 (x139)</p>
+            <p><strong>Pole Positions:</strong> 139</p>
+            <p><strong>World Championships:</strong> 8</p>
+        </div>
+        <div class="m3-card">
+            <img class="gallery-item" src="image/audi.avif">
+            <h2>Audi F1 Team</h2>
+            <img src="image/2026audilogowhite.webp" height="40px" align="right" style="border-radius: 0%; margin-top: -60px;">
+            <h3>Audi</h3>
+            <p>New factory team entering with their bespoke R26 power unit and active aerodynamics.</p>
+            <div class="divider"></div> 
+            <p><strong>Grand Prix Entered:</strong> 0</p>
+            <p><strong>Team Points:</strong> 0</p>
+            <p><strong>Highest Race Finish:</strong> N/A</p>
+            <p><strong>Podiums:</strong> 0</p>
+            <p><strong>Highest Grid Position:</strong> N/A</p>
+            <p><strong>Pole Positions:</strong> 0</p>
+            <p><strong>World Championships:</strong> 0</p>
+        </div>
+        <div class="m3-card">
+            <img class="gallery-item" src="image/martin.avif">
+            <h2>Aston Martin</h2>
+            <img src="image/2026astonmartinlogowhite.webp" height="40px" align="right" style="border-radius: 0%; margin-top: -60px;">
+            <h3>Honda</h3>
+            <p>Exclusive partnership with Honda; featuring Adrian Newey-influenced aero designs.</p>
+            <div class="divider"></div> 
+            <p><strong>Grand Prix Entered:</strong> 72</p>
+            <p><strong>Team Points:</strong> 426</p>
+            <p><strong>Highest Race Finish:</strong> 2 (x1)</p>
+            <p><strong>Podiums:</strong> 9</p>
+            <p><strong>Highest Grid Position:</strong> 2 (x1)</p>
+            <p><strong>Pole Positions:</strong> 0</p>
+            <p><strong>World Championships:</strong> 0</p>
+        </div>
+        <div class="m3-card">
+            <img class="gallery-item" src="image/williams.avif">
+            <h2>Williams</h2>
+            <img src="image/2026williamslogowhite.webp" height="40px" align="right" style="border-radius: 0%; margin-top: -60px;">
+            <h3>Mercedes</h3>
+            <p>Utilizing customer Mercedes units; strong momentum after a top-5 finish in 2025.</p>
+            <div class="divider"></div> 
+            <p><strong>Grand Prix Entered:</strong> 803</p>
+            <p><strong>Team Points:</strong> 3624</p>
+            <p><strong>Highest Race Finish:</strong> 1 (x114)</p>
+            <p><strong>Podiums:</strong> 313</p>
+            <p><strong>Highest Grid Position:</strong> 1 (x128)</p>
+            <p><strong>Pole Positions:</strong> 128</p>
+            <p><strong>World Championships:</strong> 9</p>
+        </div>
+        <div class="m3-card">
+            <img class="gallery-item" src="image/alphine.avif">
+            <h2>Alpine</h2>
+            <img src="image/2026alpinelogowhite.webp" height="40px" align="right" style="border-radius: 0%; margin-top: -60px;">
+            <h3>Mercedes</h3>
+            <p>Alpine Racing Limited, currently racing as BWT Alpine F1 Team for sponsorship reasons.</p>
+            <div class="divider"></div> 
+            <p><strong>Grand Prix Entered:</strong> 66</p>
+            <p><strong>Team Points:</strong> 448</p>
+            <p><strong>Highest Race Finish:</strong> 1 (x1)</p>
+            <p><strong>Podiums:</strong> 4</p>
+            <p><strong>Highest Grid Position:</strong> 2 (x1)</p>
+            <p><strong>Pole Positions:</strong> 0</p>
+            <p><strong>World Championships:</strong> 0</p>
+        </div>
+        <div class="m3-card">
+            <img class="gallery-item" src="image/haas.avif">
+            <h2>Haas</h2>
+            <img src="image/2026haasf1teamlogowhite.webp" height="40px" align="right" style="border-radius: 0%; margin-top: -60px;">
+            <h3>Ferrari</h3>
+            <p>Switching from Renault to Mercedes customer power units for the 2026. Continuing Ferrari partnership; recently announced a title sponsorship with Toyota.</p>
+            <div class="divider"></div> 
+            <p><strong>Grand Prix Entered:</strong> 166</p>
+            <p><strong>Team Points:</strong> 261</p>
+            <p><strong>Highest Race Finish:</strong> 4 (x1)</p>
+            <p><strong>Podiums:</strong> 0</p>
+            <p><strong>Highest Grid Position:</strong> 1 (x1)</p>
+            <p><strong>Pole Positions:</strong> 1</p>
+            <p><strong>World Championships:</strong> 0</p>
+        </div>
+        <div class="m3-card">
+            <img class="gallery-item" src="image/racing  bulls.avif">
+            <h2>Red Bull Ford</h2>
+            <img src="image/2026racingbullslogowhite.webp" height="40px" align="right" style="border-radius: 0%; margin-top: -60px;">
+            <h3>Power Unit (2026)</h3>
+            <p>Sister team to Red Bull, sharing the same Ford-backed powertrain technology.</p>
+            <div class="divider"></div> 
+            <p><strong>Grand Prix Entered:</strong> 370</p>
+            <p><strong>Team Points:</strong> 7248</p>
+            <p><strong>Highest Race Finish:</strong> 1 (x113)</p>
+            <p><strong>Podiums:</strong> 264</p>
+            <p><strong>Highest Grid Position:</strong> 1 (x95)</p>
+            <p><strong>Pole Positions:</strong> 95</p>
+            <p><strong>World Championships:</strong> 6</p>
+        </div>
+    </div>
+    
+    <div class="wavy-divider">
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+    </div>
+
+    <div id="drivers">
+        <h1 class="title" style="color: var(--lavender);" align="center">F1 Drivers 2026</h1>
+    </div>
+
+    <div class="driver-grid">
+        <a href="#" class="driver-card" style="background-color: #6B2900;">
+            <div class="driver-bg-overlay"></div>
+            <div class="driver-card-content">
+                <div class="driver-name-first">Lando</div>
+                <div class="driver-name-last">Norris</div>
+                <div class="driver-team">McLaren</div>
+            </div>
+            <img src="image/2026mclarenlannor01right.webp" class="driver-image" alt="Lando Norris">
+        </a>
+        <a href="#" class="driver-card" style="background-color: #6B2900;">
+            <div class="driver-bg-overlay"></div>
+            <div class="driver-card-content">
+                <div class="driver-name-first">Oscar</div>
+                <div class="driver-name-last">Piastri</div>
+                <div class="driver-team">McLaren</div>
+            </div>
+            <img src="image/2026mclarenoscpia01right.webp" class="driver-image" alt="Oscar Piastri">
+        </a>
+
+        <a href="#" class="driver-card" style="background-color: #5A0005;">
+            <div class="driver-bg-overlay"></div>
+            <div class="driver-card-content">
+                <div class="driver-name-first">Charles</div>
+                <div class="driver-name-last">Leclerc</div>
+                <div class="driver-team">Ferrari</div>
+            </div>
+            <img src="image/2026ferrarichalec01right.webp" class="driver-image" alt="Charles Leclerc">
+        </a>
+        <a href="#" class="driver-card" style="background-color: #5A0005;">
+            <div class="driver-bg-overlay"></div>
+            <div class="driver-card-content">
+                <div class="driver-name-first">Lewis</div>
+                <div class="driver-name-last">Hamilton</div>
+                <div class="driver-team">Ferrari</div>
+            </div>
+            <img src="image/2026ferrarilewham01right.webp" class="driver-image" alt="Lewis Hamilton">
+        </a>
+
+        <a href="#" class="driver-card" style="background-color: #002868;">
+            <div class="driver-bg-overlay"></div>
+            <div class="driver-card-content">
+                <div class="driver-name-first">Max</div>
+                <div class="driver-name-last">Verstappen</div>
+                <div class="driver-team">Red Bull Racing</div>
+            </div>
+            <img src="image/2026redbullracingmaxver01right.webp" class="driver-image" alt="Max Verstappen">
+        </a>
+        <a href="#" class="driver-card" style="background-color: #002868;">
+            <div class="driver-bg-overlay"></div>
+            <div class="driver-card-content">
+                <div class="driver-name-first">Isack</div>
+                <div class="driver-name-last">Hadjar</div>
+                <div class="driver-team">Red Bull Racing</div>
+            </div>
+            <img src="image/2026redbullracingisahad01right.webp" class="driver-image" alt="Isack Hadjar">
+        </a>
+
+        <a href="#" class="driver-card" style="background-color: #005E4D;">
+            <div class="driver-bg-overlay"></div>
+            <div class="driver-card-content">
+                <div class="driver-name-first">George</div>
+                <div class="driver-name-last">Russell</div>
+                <div class="driver-team">Mercedes</div>
+            </div>
+            <img src="image/2026mercedesgeorus01right.webp" class="driver-image" alt="George Russell">
+        </a>
+        <a href="#" class="driver-card" style="background-color: #005E4D;">
+            <div class="driver-bg-overlay"></div>
+            <div class="driver-card-content">
+                <div class="driver-name-first">Kimi</div>
+                <div class="driver-name-last">Antonelli</div>
+                <div class="driver-team">Mercedes</div>
+            </div>
+            <img src="image/2026mercedesandant01right.webp" class="driver-image" alt="Kimi Antonelli">
+        </a>
+
+        <a href="#" class="driver-card" style="background-color: #003A23;">
+            <div class="driver-bg-overlay"></div>
+            <div class="driver-card-content">
+                <div class="driver-name-first">Fernando</div>
+                <div class="driver-name-last">Alonso</div>
+                <div class="driver-team">Aston Martin</div>
+            </div>
+            <img src="image/2026astonmartinferalo01right.webp" class="driver-image" alt="Fernando Alonso">
+        </a>
+        <a href="#" class="driver-card" style="background-color: #003A23;">
+            <div class="driver-bg-overlay"></div>
+            <div class="driver-card-content">
+                <div class="driver-name-first">Lance</div>
+                <div class="driver-name-last">Stroll</div>
+                <div class="driver-team">Aston Martin</div>
+            </div>
+            <img src="image/2026astonmartinlanstr01right.webp" class="driver-image" alt="Lance Stroll">
+        </a>
+
+        <a href="#" class="driver-card" style="background-color: #000567;">
+            <div class="driver-bg-overlay"></div>
+            <div class="driver-card-content">
+                <div class="driver-name-first">Alexander</div>
+                <div class="driver-name-last">Albon</div>
+                <div class="driver-team">Williams</div>
+            </div>
+            <img src="image/2026williamsalealb01right.webp" class="driver-image" alt="Alexander Albon">
+        </a>
+        <a href="#" class="driver-card" style="background-color: #000567;">
+            <div class="driver-bg-overlay"></div>
+            <div class="driver-card-content">
+                <div class="driver-name-first">Carlos</div>
+                <div class="driver-name-last">Sainz</div>
+                <div class="driver-team">Williams</div>
+            </div>
+            <img src="image/2026williamscarsai01right.webp" class="driver-image" alt="Carlos Sainz">
+        </a>
+
+        <a href="#" class="driver-card" style="background-color: #004067;">
+            <div class="driver-bg-overlay"></div>
+            <div class="driver-card-content">
+                <div class="driver-name-first">Pierre</div>
+                <div class="driver-name-last">Gasly</div>
+                <div class="driver-team">Alpine</div>
+            </div>
+            <img src="image/2026alpinepiegas01right.webp" class="driver-image" alt="Pierre Gasly">
+        </a>
+        <a href="#" class="driver-card" style="background-color: #004067;">
+            <div class="driver-bg-overlay"></div>
+            <div class="driver-card-content">
+                <div class="driver-name-first">Franco</div>
+                <div class="driver-name-last">Colapinto</div>
+                <div class="driver-team">Alpine</div>
+            </div>
+            <img src="image/2026alpinefracol01right.webp" class="driver-image" alt="Franco Colapinto">
+        </a>
+
+        <a href="#" class="driver-card" style="background-color: #1C3789;">
+            <div class="driver-bg-overlay"></div>
+            <div class="driver-card-content">
+                <div class="driver-name-first">Liam</div>
+                <div class="driver-name-last">Lawson</div>
+                <div class="driver-team">Racing Bulls</div>
+            </div>
+            <img src="image/2026racingbullslialaw01right.webp" class="driver-image" alt="Liam Lawson">
+        </a>
+        <a href="#" class="driver-card" style="background-color: #1C3789;">
+            <div class="driver-bg-overlay"></div>
+            <div class="driver-card-content">
+                <div class="driver-name-first">Arvid</div>
+                <div class="driver-name-last">Lindblad</div>
+                <div class="driver-team">Racing Bulls</div>
+            </div>
+            <img src="image/2026racingbullsarvlin01right.webp" class="driver-image" alt="Arvid Lindblad">
+        </a>
+
+        <a href="#" class="driver-card" style="background-color: #3E4042;">
+            <div class="driver-bg-overlay"></div>
+            <div class="driver-card-content">
+                <div class="driver-name-first">Esteban</div>
+                <div class="driver-name-last">Ocon</div>
+                <div class="driver-team">Haas F1 Team</div>
+            </div>
+            <img src="image/2026haasf1teamestoco01right.webp" class="driver-image" alt="Esteban Ocon">
+        </a>
+        <a href="#" class="driver-card" style="background-color: #3E4042;">
+            <div class="driver-bg-overlay"></div>
+            <div class="driver-card-content">
+                <div class="driver-name-first">Oliver</div>
+                <div class="driver-name-last">Bearman</div>
+                <div class="driver-team">Haas F1 Team</div>
+            </div>
+            <img src="image/2026haasf1teamolibea01right.webp" class="driver-image" alt="Oliver Bearman">
+        </a>
+
+        <a href="#" class="driver-card" style="background-color: #560011;">
+            <div class="driver-bg-overlay"></div>
+            <div class="driver-card-content">
+                <div class="driver-name-first">Nico</div>
+                <div class="driver-name-last">Hulkenberg</div>
+                <div class="driver-team">Audi</div>
+            </div>
+            <img src="image/2026audinichul01right.webp" class="driver-image" alt="Nico Hulkenberg">
+        </a>
+        <a href="#" class="driver-card" style="background-color: #560011;">
+            <div class="driver-bg-overlay"></div>
+            <div class="driver-card-content">
+                <div class="driver-name-first">Gabriel</div>
+                <div class="driver-name-last">Bortoleto</div>
+                <div class="driver-team">Audi</div>
+            </div>
+            <img src="image/2026audigabbor01right.webp" class="driver-image" alt="Gabriel Bortoleto">
+        </a>
+
+        <a href="#" class="driver-card" style="background-color: #363636;">
+            <div class="driver-bg-overlay"></div>
+            <div class="driver-card-content">
+                <div class="driver-name-first">Valtteri</div>
+                <div class="driver-name-last">Bottas</div>
+                <div class="driver-team">Cadillac</div>
+            </div>
+            <img src="image/2026cadillacvalbot01right.webp" class="driver-image" alt="Valtteri Bottas">
+        </a>
+        <a href="#" class="driver-card" style="background-color: #363636;">
+            <div class="driver-bg-overlay"></div>
+            <div class="driver-card-content">
+                <div class="driver-name-first">Sergio</div>
+                <div class="driver-name-last">Perez</div>
+                <div class="driver-team">Cadillac</div>
+            </div>
+            <img src="image/2026cadillacserper01right.webp" class="driver-image" alt="Sergio Perez">
+        </a>
+    </div>
+
+    <div class="wavy-divider">
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+        <svg viewBox="0 0 100 20">
+            <path d="M0 10 Q 25 20 50 10 T 100 10" />
+        </svg>
+    </div>
+
+    <footer>
+        <h3>Reserved &copy; 2026 - 2027</h3>
+         <h4>(: Max Verstappen is the GOAT! </h4>
+    </footer> 
+</body>
+
+</html>
